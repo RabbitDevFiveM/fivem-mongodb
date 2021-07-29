@@ -190,10 +190,24 @@ function dbDelete(params, callback, isDeleteOne) {
     process._tickCallback();
 }
 
+
+/**
+ * MongoDB createIndex method
+ * @param {Object} params - Params object
+ */
+function createIndex(params){
+    if (!checkParams(params)) return console.log(`[MongoDB][ERROR] exports.createIndex: Invalid params object.`);
+    console.log(`[MongoDB] createIndex with params `, JSON.stringify(params) );
+    if (!checkDatabaseReady()) return;
+     db.collection(params.collectionName).createIndex(params.keys,params.options)
+}
+
+
 /* Exports definitions */
 
 exports("isConnected", () => !!db);
 
+exports("createIndex",createIndex)
 exports("insert", dbInsert);
 exports("insertOne", (params, callback) => {
     if (checkParams(params)) {
