@@ -54,6 +54,32 @@ exports.mongodb:aggregate({
 end)
 ```
 
+#Find
+```lua
+exports.mongodb:find({
+    collection = "phone_message",
+    query = {
+        transmitter = "",
+        receiver = ""
+    },
+    limit = 100,
+    sort = {
+        time = -1
+    }
+}, function (success, result)
+    if not success then
+        return
+    end
+
+    print("\n** 100 message lastest")
+    for i, document in ipairs(result) do
+        for k, v in pairs(document) do
+            print("* "..tostring(k).." = \""..tostring(v).."\"")
+        end
+    end
+end)
+```
+
 
 
 #CreateIndex

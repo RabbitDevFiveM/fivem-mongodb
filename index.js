@@ -93,6 +93,7 @@ function dbFind(params, callback) {
     const options = utils.safeObjectArgument(params.options);
 
     let cursor = collection.find(query, options);
+    if (params.sort) cursor = cursor.sort(params.sort);
     if (params.limit) cursor = cursor.limit(params.limit);
     cursor.toArray((err, documents) => {
         if (err) {
